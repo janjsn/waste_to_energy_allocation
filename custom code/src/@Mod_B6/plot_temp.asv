@@ -1,0 +1,46 @@
+function plot_temp(obj)
+
+
+share_recovered_heat = [0.1:0.1:1];
+share_other = 1-share_recovered_heat;
+emission_intensity_peak_load = [0:1:250];
+
+B_factor = [0:0.01:1];
+B_factor_selected = [0:0.2:1];
+
+emission_intensity_contribution_recovered_heat_B_vec = obj.emission_intensity_recovered_heat_delivered_gCO2eq_per_kWh_mean.*B_factor;
+emission_intensity_contribution_recovered_heat_B_sel_vec= obj.emission_intensity_recovered_heat_delivered_gCO2eq_per_kWh_mean.*B_factor_selected;
+emission_intensity_contribution_recovered_heat_std_B_sel_vec= obj.emission_intensity_recovered_heat_gCO2eq_per_kWh_std.*B_factor_selected;
+
+em_B_shareRec_emPeak = zeros(length(B_factor_selected), length(share_recovered_heat), length(emission_intensity_peak_load));
+em_B_shareRec_emPeak_std = zeros(length(B_factor_selected), length(share_recovered_heat), length(emission_intensity_peak_load));
+
+for i = 1:length(B_factor_selected)
+    for j = 1:length(share_recovered_heat)
+        for k = 1:length(emission_intensity_peak_load)
+            em_B_shareRec_emPeak(i,j,k) = emission_intensity_contribution_recovered_heat_B_sel_vec(i)*share_recovered_heat(j) + emission_intensity_peak_load(k)*share_other(j);
+            em_B_shareRec_emPeak_std(i,j,k) = emission_intensity_contribution_recovered_heat_std_B_sel_vec(i)*share_recovered_heat(j);
+        end
+    end
+end
+
+
+% for i = 1:length(B_factor_selected)
+%     figure
+%     for j = 1:length(share_recovered_heat)
+%         data = zeros(1,length(emission_intensity_peak_load));
+%         data(1,:) = em_B_shareRec_emPeak(i,j,:);
+% 
+%         plot(emission_intensity_peak_load, data)
+%         hold on
+%     end
+% end
+
+for j = 1:length(share_recovered_heat)
+    for 
+
+
+end
+
+end
+
